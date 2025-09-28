@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 app.use('/', songRoutes)
-app.use('/', authRouter)
+app.use('/api/auth', authRouter)
 
 
 

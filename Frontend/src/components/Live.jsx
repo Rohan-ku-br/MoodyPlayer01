@@ -6,7 +6,7 @@ const Live = () => {
   const [Songs, setSongs] = useState([]);
 
   return (
-    <div>
+    <div className="pt-20 bg-gradient-to-br  from-gray-800 via-gray-900 to-black  h-screen">
       <FaceExpressionDetection setSongs={setSongs} />
       <MoodSongs Songs={Songs} />
     </div>

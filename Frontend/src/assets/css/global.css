@@ -20,7 +20,7 @@ body #root {
 }
 
 .grad-color {
-  background-image: linear-gradient(to right, #14d253, #3c09be);
+  background-image: linear-gradient(to right, #086527, #3c09be);
   /* Example gradient */
   -webkit-background-clip: text;
   background-clip: text;

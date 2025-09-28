@@ -4,7 +4,6 @@ import axios from 'axios';
 
 const FaceExpressionDetection = ({setSongs}) => {
   const videoRef = useRef(null);
-  const canvasRef = useRef(null);
 
   // Load face-api models
   const loadModels = async () => {

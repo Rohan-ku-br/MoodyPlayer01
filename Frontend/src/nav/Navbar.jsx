@@ -3,12 +3,14 @@ import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between  p-5">
+    <div className="fixed top-0 left-0 w-full flex justify-between items-center p-5 pr-36 bg-white/20 backdrop-blur-md border-b border-white/30 z-50">
       <div className="flex items-center gap-2 ">
         <i className="ri-align-item-vertical-center-fill text-2xl"></i>
-        <h1 className="text-2xl font-bold fontLogo drop-shadow-lg grad-color">
-          Moody Player
-        </h1>
+        <NavLink to="/">
+          <h1 className="text-2xl font-bold fontLogo drop-shadow-lg grad-color">
+            Moody Player
+          </h1>
+        </NavLink>
       </div>
       <div className="relative w-[200px] max-w-sm">
         <input
@@ -23,8 +25,18 @@ const Navbar = () => {
         <NavLink to="/">Home</NavLink>
         <NavLink to="/live">Live</NavLink>
         <NavLink to="/feed">Feed</NavLink>
-        <NavLink to="/login">Login</NavLink>
-        <NavLink to="/signin">Signin</NavLink>
+        <div className="flex items-center text-center gap-1">
+          <NavLink to="/login">
+            <button className="bg-blue-400 px-2 py-0.5 font-extralight rounded">
+              Login
+            </button>
+          </NavLink>
+          <NavLink to="/signin">
+            <button className="bg-blue-400 px-2 py-0.5 font-extralight rounded">
+              Signin
+            </button>
+          </NavLink>
+        </div>
       </div>
     </div>
   );

@@ -20,16 +20,12 @@ const Signin = () => {
     }
   };
 
-
-  const handleUsers = (e)=>{
-    setForm({...form, [e.target.name]: e.target.value})
-  }
-
-
-
+  const handleUsers = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-7 bg-gradient-to-br from-purple-400 via-purple-900 to-blue-500">
+    <div className="flex flex-col items-center justify-center h-screen gap-7 bg-gradient-to-br   from-gray-800 via-gray-900 to-black ">
       <h1 className="text-3xl font-bold">Sign Up</h1>
       <form className="flex flex-col " onSubmit={handleSubmit}>
         <label htmlFor="userName" className="font-medium">

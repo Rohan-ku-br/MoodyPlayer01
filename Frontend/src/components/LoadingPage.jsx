@@ -2,7 +2,7 @@ import React from "react";
 
 const LoadingPage = () => {
   return (
-    <div className="h-screen w-screen bg-gradient-to-br from-purple-700 via-purple-900 to-black flex flex-col items-center justify-center text-center gap-8">
+    <div className="h-screen w-screen bg-gradient-to-br  from-gray-800 via-gray-900 to-black flex flex-col items-center justify-center text-center gap-8">
       {/* Logo and App Name */}
       <div className="flex items-center gap-4 animate-bounce">
         <i className="ri-align-item-vertical-center-fill text-7xl"></i>
