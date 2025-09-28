@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+html,
+body #root {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+}
+
+.fontLogo {
+  font-family: "Ceviche One", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fontText {
+  font-family: "Neucha", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.grad-color {
+  background-image: linear-gradient(to right, #14d253, #3c09be);
+  /* Example gradient */
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
