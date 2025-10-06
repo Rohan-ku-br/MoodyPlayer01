@@ -1,12 +1,10 @@
+import { useContext } from "react";
 import StartingPage from "./components/StartingPage";
-
 
 const App = () => {
   return (
     <div className="h-screen ">
       <StartingPage />
-  
-    
     </div>
   );
 };

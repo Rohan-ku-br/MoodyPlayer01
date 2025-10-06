@@ -1,8 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import * as faceapi from "face-api.js";
 import axios from 'axios';
+import { MyDataContext } from "../context/DataContext";
 
-const FaceExpressionDetection = ({setSongs}) => {
+const FaceExpressionDetection = () => {
+
+  const {setSongs} = useContext(MyDataContext)
+
   const videoRef = useRef(null);
 
   // Load face-api models

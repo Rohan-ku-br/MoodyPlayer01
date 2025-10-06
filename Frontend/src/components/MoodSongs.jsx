@@ -1,5 +1,8 @@
-import { useState } from "react";
-const MoodSongs = ({ Songs = [] }) => {
+import { useContext, useState } from "react";
+import { MyDataContext } from "../context/DataContext";
+const MoodSongs = () => {
+  const { Songs } = useContext(MyDataContext);
+
   // default empty array
   const [isPlaying, setIsPlaying] = useState(null);
 
@@ -12,45 +15,56 @@ const MoodSongs = ({ Songs = [] }) => {
   };
 
   return (
-    <div className="pl-32 pr-32 ">
-      <h1 className="text-4xl  text-gray-950 mb-4">Recommended Tracks</h1>
-      {Songs.length > 0 ? (
-        Songs.map((song, index) => (
-          <div
-            key={index}
-            className="bg-gray-100 mb-1 flex items-center justify-between pl-2 pr-2 pb-1 rounded"
-          >
-            <div className="text-xl">
-              <h3>{song.title}</h3>
-              <p>{song.artist}</p>
-            </div>
-            <div className="text-xl flex items-center gap-5">
-              {isPlaying === index && (
-                <audio
-                  className="hidden"
-                  src={song.audio}
-                  controls
-                  autoPlay={isPlaying === index}
-                ></audio>
-              )}
+    <div className="px-32">
+      {/* Heading */}
+      <h1 className="text-4xl text-gray-950 mb-6">Recommended Tracks</h1>
 
-              <button
-                onClick={() => {
-                  handlePlayPause(index);
-                }}
-              >
-                {isPlaying === index ? (
-                  <i className="ri-pause-large-line"></i>
-                ) : (
-                  <i className="ri-play-circle-fill"></i>
+      {/* Songs container */}
+      <div className="flex flex-wrap gap-6">
+        {Songs.length > 0 ? (
+          Songs.map((song, index) => (
+            <div
+              key={index}
+              className="w-[180px] rounded shadow-lg bg-gray-900 p-3 text-white"
+            >
+              {/* Song Image */}
+              <img
+                className="w-full h-[175px] object-cover rounded bg-gray-100"
+                src={song.image}
+                alt={song.title}
+              />
+
+              {/* Song Info */}
+              <div className="mt-2">
+                <h3 className="text-lg font-semibold truncate">{song.title}</h3>
+                <p className="text-sm text-gray-400 truncate">{song.artist}</p>
+              </div>
+
+              {/* Audio Controls */}
+              <div className="mt-2 flex items-center gap-5">
+                {isPlaying === index && (
+                  <audio
+                    className="hidden"
+                    src={song.audio}
+                    controls
+                    autoPlay
+                  ></audio>
                 )}
-              </button>
+
+                <button onClick={() => handlePlayPause(index)}>
+                  {isPlaying === index ? (
+                    <i className="ri-pause-large-line text-2xl"></i>
+                  ) : (
+                    <i className="ri-play-circle-fill text-2xl"></i>
+                  )}
+                </button>
+              </div>
             </div>
-          </div>
-        ))
-      ) : (
-        <p className="text-gray-400 ">No songs available</p>
-      )}
+          ))
+        ) : (
+          <p className="text-gray-400">No songs available</p>
+        )}
+      </div>
     </div>
   );
 };

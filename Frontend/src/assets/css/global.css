@@ -20,9 +20,45 @@ body #root {
 }
 
 .grad-color {
-  background-image: linear-gradient(to right, #086527, #3c09be);
-  /* Example gradient */
+  background-image: linear-gradient(to right, #083c19, #3c09be);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
+@keyframes jelly {
+  0% {
+    transform: scale(1, 1);
+  }
+
+  25% {
+    transform: scale(1.1, 0.9);
+  }
+
+  50% {
+    transform: scale(0.9, 1.1);
+  }
+
+  75% {
+    transform: scale(1.05, 0.95);
+  }
+
+  100% {
+    transform: scale(1, 1);
+  }
+}
+
+.jelly-hover:hover {
+  animation: jelly 0.5s ease;
 }

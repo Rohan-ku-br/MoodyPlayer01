@@ -4,7 +4,7 @@ const LoadingPage = () => {
   return (
     <div className="h-screen w-screen bg-gradient-to-br  from-gray-800 via-gray-900 to-black flex flex-col items-center justify-center text-center gap-8">
       {/* Logo and App Name */}
-      <div className="flex items-center gap-4 animate-bounce">
+      <div className="flex items-center -gap-1 animate-bounce">
         <i className="ri-align-item-vertical-center-fill text-7xl"></i>
         <h1 className="text-7xl font-bold fontLogo grad-color drop-shadow-lg">
           Moody Player

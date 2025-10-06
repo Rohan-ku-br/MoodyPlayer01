@@ -17,6 +17,8 @@ router.post('/songs', upload.single("audio"), async (req, res) => {
         artist: req.body.artist,
         audio: fileData.url,
         mood: req.body.mood,
+        image: fileData.url,
+        type: req.body.type
     })
     res.status(201).json({
         message: " song created successfully",
@@ -26,16 +28,27 @@ router.post('/songs', upload.single("audio"), async (req, res) => {
 
 router.get('/songs', async (req, res) => {
 
-    const { mood } = req.query;
+    const { mood, type } = req.query;
 
-    const songs = await songModel.find({
-        mood: mood
-    })
+    const filter = {}
+    if (mood) filter.mood = mood;
+    if (type) filter.type = type;
+
+    const songs = await songModel.find(filter)
 
     res.status(200).json({
         message: "songs fatched successfully",
         songs
     })
 })
+
+router.get('/cards', async (req, res) => {
+    const titles = await songModel.find(); // get all songs
+    res.status(200).json({
+        message: "Songs Title fetch successfully...",
+        titles,
+    });
+});
+
 
 module.exports = router;
