@@ -6,6 +6,10 @@ import Navbar from "../nav/Navbar";
 import Signin from "../pages/Signin";
 import Login from "../pages/Login";
 import Favorites from "../pages/Favorites";
+import UserSection from "../nav/UserSection";
+import SearchResults from "../pages/SearchResults";
+import Footer from "../pages/Footer";
+import PlayerBar from "../pages/PlayerBar";
 
 const MainRoutes = () => {
   return (
@@ -17,7 +21,11 @@ const MainRoutes = () => {
         <Route path="/Favorites" element={<Favorites />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/UserSection" element={<UserSection/>}/>
+        <Route path="/search" element={<SearchResults/>}/>
       </Routes>
+      <PlayerBar/>
+      <Footer/>
     </div>
   );
 };

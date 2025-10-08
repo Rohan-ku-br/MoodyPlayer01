@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Signin = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     userName: "",
     email: "",
@@ -16,18 +17,26 @@ const Signin = () => {
     try {
       await axios.post("http://localhost:3000/api/auth/signin", form);
       toast.success("SignUp successfully...");
+      navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Error signing up");
     }
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/");
+    }
+  }, [navigate]);
 
   const handleUsers = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   return (
-    <div className="flex flex-col absolute z-90 w-full items-center text-white justify-center h-screen gap-7 bg-gradient-to-br   from-gray-800 via-gray-900 to-black ">
-      <div className="px-[200px] py-[150px] bg-white/20 backdrop-blur-md border-b border-white/30 z-999">
+    <div className="flex flex-col absolute z-90 w-full items-center text-white justify-center h-screen bg-gradient-to-br   from-gray-800 via-gray-900 to-black ">
+      <div className="px-[200px] py-[100px] bg-white/20 backdrop-blur-md border-b  gap-7  border-white/30 z-999 flex flex-col items-center justify-center">
         <h1 className="text-3xl font-bold">Sign Up</h1>
         <form className="flex flex-col " onSubmit={handleSubmit}>
           <label htmlFor="userName" className="font-medium">
@@ -72,7 +81,7 @@ const Signin = () => {
             Sign up
           </button>
         </form>
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center gap-1">
           <h2>Already have an account?</h2>
           <NavLink to="/login" className="text-lg font-bold text-blue-500">
             Log in

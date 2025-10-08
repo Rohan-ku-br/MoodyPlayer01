@@ -10,7 +10,7 @@ const Favorites = () => {
   };
 
   return (
-    <div className="pr-5 pt-30 text-white bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen px-5 py-16">
+    <div className="pr-5 pt-20 text-white bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen px-5 py-16">
       <h1 className="text-3xl font-semibold inline-block mb-6">
         Favorite Songs 💖
       </h1>

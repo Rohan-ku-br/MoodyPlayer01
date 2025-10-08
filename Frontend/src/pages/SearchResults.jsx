@@ -1,42 +1,52 @@
-import { useContext, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 import { MyDataContext } from "../context/DataContext";
 
-const Home = () => {
-  const { cards, Fav, toggleFavorite, isPlaying, setIsPlaying } =
-    useContext(MyDataContext);
+const SearchResults = () => {
+  const [songs, setSongs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const { isPlaying, setIsPlaying } = useContext(MyDataContext);
+
+  // ✅ useLocation helps us read the query string from the URL
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("q");
 
   const handlePlayPause = (id) => {
     setIsPlaying(isPlaying === id ? null : id);
   };
 
-  const isFav = (songId) => Fav.includes(String(songId));
+  useEffect(() => {
+    const fetchSongs = async () => {
+      if (!query) return;
+      try {
+        const res = await axios.get(`http://localhost:3000/search?q=${query}`);
+        setSongs(res.data);
+      } catch (err) {
+        console.log("Search error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSongs();
+  }, [query]);
 
-  // ✅ Group by type
-  const categories = {
-    "Top Songs": cards.filter((song) => song.type === "top"),
-    "Hindi Songs": cards.filter((song) => song.type === "hindi"),
-    "English Songs": cards.filter((song) => song.type === "english"),
-    "Old songs": cards.filter((song) => song.type === "Old songs"),
-  };
+  if (loading)
+    return <div className="text-white text-center mt-20">Loading...</div>;
 
   return (
     <div className="pr-5 pt-20 bg-gradient-to-br from-gray-800 via-gray-900 to-black min-h-screen px-5 py-16">
-      {Object.keys(categories).map((category) => (
-        <div key={category} className="mb-12">
-          <NavLink className="text-2xl font-bold text-white mb-4">
-            {category}
-          </NavLink>
+      
 
-          <div className="flex overflow-x-auto hide-scrollbar py-4 gap-6 ">
-            {categories[category].length > 0 ? (
-              categories[category].map((data) => (
-                <div
+      {songs.length > 0 ? (
+        <div className="flex gap-6">
+          {songs.map((data) => (
+            <div
                   key={data._id}
                   className="relative w-[200px] flex-shrink-0 rounded shadow-lg bg-gray-900 p-3 text-white transform transition duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-950"
                 >
                   {/* Like Button */}
-                  <button
+                  {/* <button
                     key={data._id}
                     onClick={() => toggleFavorite(data)}
                     className="absolute right-3 top-3 text-xl"
@@ -46,7 +56,7 @@ const Home = () => {
                     ) : (
                       <i className="ri-heart-line text-gray-400"></i>
                     )}
-                  </button>
+                  </button> */}
 
                   {/* Song Image */}
                   <img
@@ -83,15 +93,13 @@ const Home = () => {
                     </button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <p className="text-gray-400">No songs available</p>
-            )}
-          </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <p className="text-center text-gray-400">No songs found 🎵</p>
+      )}
     </div>
   );
 };
 
-export default Home;
+export default SearchResults;

@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [login, setLogin] = useState({ email: "", password: "" });
 
   const handleloginUser = (e) => {
@@ -19,15 +20,24 @@ const Login = () => {
       );
       localStorage.setItem("token", res.data.token);
       toast.success("Login Successfully 🎶");
+      navigate("/");
     } catch (err) {
       toast.error(err.response?.data?.message || "Invalid Login ❌");
       console.log("error aa gya bhai", err);
     }
   };
 
+  useEffect(() => {
+    const token = localStorage.getItem("token")
+    if(token){
+      navigate("/")
+    }
+  }, [navigate])
+  
+
   return (
-    <div className="flex absolute z-90 flex-col  text-white w-full items-center justify-center h-screen gap-7 bg-gradient-to-br  from-gray-800 via-gray-900 to-black ">
-      <div className="px-[200px] py-[150px] bg-white/20 backdrop-blur-md border-b border-white/30 z-999">
+    <div className="flex absolute z-90 flex-col  text-white w-full items-center justify-center h-screen  bg-gradient-to-br  from-gray-800 via-gray-900 to-black ">
+      <div className="px-[200px] py-[150px] bg-white/20 backdrop-blur-md border-b border-white/30 z-999 flex flex-col items-center justify-center gap-7">
         <h1 className="text-3xl font-bold">Log in</h1>
         <form className="flex flex-col " onSubmit={handleSubmit}>
           <label htmlFor="email" className="font-medium">
@@ -63,7 +73,7 @@ const Login = () => {
             Log in
           </button>
         </form>
-        <div className="flex flex-col items-center ">
+        <div className="flex flex-col items-center gap-1">
           <h2>Don't have an account?</h2>
           <NavLink to="/signin" className="text-lg font-bold text-blue-500">
             Sign up
