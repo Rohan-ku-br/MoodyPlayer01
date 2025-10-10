@@ -63,7 +63,7 @@ const FaceExpressionDetection = () => {
   }, []);
 
   return (
-    <div className=" pl-32 pr-32 ">
+    <div className=" pl-32 pr-32 text-white">
       <h1 className="text-4xl font-bold text- mt-10 mb-10">
         Live Mood Detection
       </h1>
@@ -73,7 +73,7 @@ const FaceExpressionDetection = () => {
         <div className="flex-col ">
           <div className="flex-col gap-1 ">
             <h2 className="text-2xl font-semibold">Live Mood Detection</h2>
-            <p className="text-xl w-[60%]">
+            <p className=" w-[60%] text-gray-300">
               Your Current mood is being analyzed in real-time. Enjoy your music
               tailored to you feelings{" "}
             </p>

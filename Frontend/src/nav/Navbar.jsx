@@ -22,7 +22,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="fixed top-0 left-0 w-full flex justify-between items-center px-5 py-2 pr-36 bg-white/20 backdrop-blur-md border-b border-white/30 z-50">
+    <div className="fixed top-0 left-0 w-full flex justify-between items-center px-5 py-2 pr-36 bg-white/30 backdrop-blur-md border-b border-white/30 z-50">
       <div className="flex items-center -gap-1  jelly-hover">
         <i className="ri-align-item-vertical-center-fill text-2xl"></i>
         <NavLink to="/">

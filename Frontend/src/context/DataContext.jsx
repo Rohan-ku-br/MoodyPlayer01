@@ -6,7 +6,6 @@ export const MyDataContext = createContext();
 const DataContext = ({ children }) => {
   const normalize = (id) => String(id);
   const [Songs, setSongs] = useState([]);
-
   const [Fav, setFav] = useState(() => {
     try {
       const raw = localStorage.getItem("favorites");
@@ -16,8 +15,19 @@ const DataContext = ({ children }) => {
       return [];
     }
   });
+
   const [cards, setCards] = useState([]);
-  const [isPlaying, setIsPlaying] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState(null);
+
+  const handlePlayPause = (song) => {
+    if (currentSong && currentSong._id === song._id) {
+      setIsPlaying(!isPlaying);
+    } else {
+      setCurrentSong(song);
+      setIsPlaying(true);
+    }
+  };
 
   useEffect(() => {
     const fetchSongs = async () => {
@@ -28,11 +38,9 @@ const DataContext = ({ children }) => {
         console.log("song not found", err);
       }
     };
-
     fetchSongs();
   }, []);
 
-  // persist IDs to localStorage
   useEffect(() => {
     try {
       localStorage.setItem("favorites", JSON.stringify(Fav));
@@ -41,40 +49,38 @@ const DataContext = ({ children }) => {
     }
   }, [Fav]);
 
-  // toggle accepts either an id or a song object
   const toggleFavorite = (songOrId) => {
     const id =
       typeof songOrId === "object" && songOrId !== null
         ? normalize(songOrId._id)
         : normalize(songOrId);
-
     setFav((prev) => {
       if (prev.includes(id)) return prev.filter((x) => x !== id);
       return [...prev, id];
     });
   };
 
-  // convenience: list of full song objects that are favorited
   const favoriteSongs = cards.filter((c) => Fav.includes(normalize(c._id)));
 
   return (
-    <div>
-      <MyDataContext.Provider
-        value={{
-          Songs,
-          setSongs,
-          cards,
-          setCards,
-          Fav,
-          toggleFavorite,
-          isPlaying,
-          setIsPlaying,
-          favoriteSongs,
-        }}
-      >
-        {children}
-      </MyDataContext.Provider>
-    </div>
+    <MyDataContext.Provider
+      value={{
+        Songs,
+        setSongs,
+        cards,
+        setCards,
+        Fav,
+        toggleFavorite,
+        isPlaying,
+        setIsPlaying,
+        currentSong,
+        setCurrentSong,
+        handlePlayPause,
+        favoriteSongs,
+      }}
+    >
+      {children}
+    </MyDataContext.Provider>
   );
 };
 

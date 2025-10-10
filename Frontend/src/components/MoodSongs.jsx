@@ -17,7 +17,7 @@ const MoodSongs = () => {
   return (
     <div className="px-32">
       {/* Heading */}
-      <h1 className="text-4xl text-gray-950 mb-6">Recommended Tracks</h1>
+      <h1 className="text-4xl text-white mb-6">Recommended Tracks</h1>
 
       {/* Songs container */}
       <div className="flex flex-wrap gap-6">
