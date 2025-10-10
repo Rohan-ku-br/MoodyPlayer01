@@ -1,18 +1,8 @@
 import { useContext, useState } from "react";
 import { MyDataContext } from "../context/DataContext";
 const MoodSongs = () => {
-  const { Songs } = useContext(MyDataContext);
-
-  // default empty array
-  const [isPlaying, setIsPlaying] = useState(null);
-
-  const handlePlayPause = (index) => {
-    if (isPlaying == index) {
-      setIsPlaying(null);
-    } else {
-      setIsPlaying(index);
-    }
-  };
+  const { Songs, isPlaying, currentSong, handlePlayPause } =
+    useContext(MyDataContext);
 
   return (
     <div className="px-32">
@@ -25,7 +15,10 @@ const MoodSongs = () => {
           Songs.map((song, index) => (
             <div
               key={index}
-              className="w-[180px] rounded shadow-lg bg-gray-900 p-3 text-white"
+              onClick={() => {
+                handlePlayPause(song);
+              }}
+              className="relative w-[180px] rounded shadow-lg bg-gray-900 p-3 text-white hover:scale-105 transition-transform cursor-pointer"
             >
               {/* Song Image */}
               <img
@@ -41,24 +34,11 @@ const MoodSongs = () => {
               </div>
 
               {/* Audio Controls */}
-              <div className="mt-2 flex items-center gap-5">
-                {isPlaying === index && (
-                  <audio
-                    className="hidden"
-                    src={song.audio}
-                    controls
-                    autoPlay
-                  ></audio>
-                )}
-
-                <button onClick={() => handlePlayPause(index)}>
-                  {isPlaying === index ? (
-                    <i className="ri-pause-large-line text-2xl"></i>
-                  ) : (
-                    <i className="ri-play-circle-fill text-2xl"></i>
-                  )}
-                </button>
-              </div>
+              {currentSong?._id === song._id && isPlaying && (
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <i className="ri-pause-large-line text-3xl text-white"></i>
+                </div>
+              )}
             </div>
           ))
         ) : (
